@@ -3,6 +3,7 @@ package coquelicot
 
 type Storage struct {
 	output    string
+	host			string
 	verbosity int
 }
 
@@ -13,6 +14,10 @@ func (s *Storage) StorageDir() string {
 	return s.output
 }
 
-func NewStorage(rootDir string) *Storage {
-	return &Storage{output: rootDir}
+func (s *Storage) Host() string {
+	return "http://"+s.host
+}
+
+func NewStorage(rootDir string,h string) *Storage {
+	return &Storage{output: rootDir,host:h}
 }

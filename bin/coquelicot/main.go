@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	s := coquelicot.NewStorage(*storage)
+	s := coquelicot.NewStorage(*storage,*host)
 	s.Option(coquelicot.Convert(*convert))
 
 	logger := log.New(os.Stdout, "", log.LstdFlags)
@@ -25,6 +25,7 @@ func main() {
 	routes := map[string]http.HandlerFunc{
 		"/files":  s.UploadHandler,
 		"/resume": s.ResumeHandler,
+		"/delete/": s.DeleteHandler,
 	}
 	for path, handler := range routes {
 		http.Handle(path, coquelicot.Adapt(http.HandlerFunc(handler),
